@@ -2,12 +2,12 @@
 
   angular
        .module('ngJwt')
-       .directive('JwtlComponent',) [
-          JwtlComponent
+       .directive('JwtComponent',) [
+          JwtComponent
        ])
      
 
- function JwtlComponent() {
+ function JwtComponent() {
     return {
         bindings: {short: '<'},
         controller: function(){
