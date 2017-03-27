@@ -1,0 +1,30 @@
+{
+  "name": "web-angular-jwt",
+  "homepage": "https://github.com/Digitalminion/web-angular-jwt",
+  "authors": [
+    "Leahy <leahy@apache.org>"
+  ],
+  "description": "angular library to handle JWT headers in data models",
+  "main": "app.js",
+  "keywords": [
+    "angular",
+    "jwt"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.6.3",
+    "angular-route": "1.4.12",
+    "angular-resource": "1.4.12",
+    "angular-sanitize": "1.4.12",
+    "angular-base64": "https://github.com/batoure/angular-base64.git#1.0.0",
+    "angular-cookies": "1.4.12"
+  }
+}
