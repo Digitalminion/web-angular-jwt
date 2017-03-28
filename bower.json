@@ -21,10 +21,10 @@
   ],
   "dependencies": {
     "angular": "1.6.3",
-    "angular-route": "1.4.12",
-    "angular-resource": "1.4.12",
-    "angular-sanitize": "1.4.12",
+    "angular-route": "1.6.3",
+    "angular-resource": "1.6.3",
+    "angular-sanitize": "1.6.3",
     "angular-base64": "https://github.com/batoure/angular-base64.git#1.0.0",
-    "angular-cookies": "1.4.12"
+    "angular-cookies": "1.6.3"
   }
 }

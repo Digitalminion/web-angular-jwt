@@ -1,10 +1,11 @@
 (function(){
-  'use strict';
+    'use strict';
     
-  angular.module('authJwt')
-       .directive('JwtComponent', [
-          JwtComponent
-       ])
+    angular.module('authJwt')
+           .directive('JwtComponent', 
+            [
+              JwtComponent
+           ]);
 
      function JwtComponent() {
         return {
