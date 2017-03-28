@@ -1,22 +1,22 @@
 (function(){
+    'use strict';
+    
+    angular.module('authJwt')
+           .directive('JwtComponent', 
+            [
+              JwtComponent
+           ]);
 
-  angular
-       .module('ngJwt')
-       .directive('JwtlComponent',) [
-          JwtlComponent
-       ])
-     
+     function JwtComponent() {
+        return {
+            bindings: {short: '<'},
+            controller: function(){
+                var self = this;
 
- function JwtlComponent() {
-    return {
-        bindings: {short: '<'},
-        controller: function(){
-            var self = this;
-            
-            
-            
+
+
+            }
         }
     }
-}
-    
+
 })();
