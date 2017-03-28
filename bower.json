@@ -24,7 +24,7 @@
     "angular-route": "1.6.3",
     "angular-resource": "1.6.3",
     "angular-sanitize": "1.6.3",
-    "angular-base64": "https://github.com/batoure/angular-base64.git#1.0.0",
+    "angular-base64": "https://github.com/dataminion/angular-base64.git#1.5.0",
     "angular-cookies": "1.6.3"
   }
 }

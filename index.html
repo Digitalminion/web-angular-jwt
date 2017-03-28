@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>
+<body ng-controller="AppCtrl as main">
 	<div id="title">
         <h1>This is a test page to validate JWT is working</h1>
     </div>
@@ -16,20 +16,24 @@
         <form>
             <div>
                 <label for="inputEmail">Email</label>
-                <input type="username" id="inputEmail" ng-model="loginEmail" placeholder="Email" />
+                <input type="username" id="inputEmail" ng-model="main.email" placeholder="Email" />
             </div>
             <div>
                 <label for="inputPassword">Password</label>
-                <input type="password" id="inputPassword" ng-model="loginPassword" placeholder="Password" />
+                <input type="password" id="inputPassword" ng-model="main.password" placeholder="Password" />
             </div>
+            
+            <jwt-component email="main.email" password="main.password" ></jwt-component>
+<!--
             <div>
                 <alert>
-                    <strong>{{ LoginErrorMessage }}</strong>
+                    <strong>{{ main.ErrorMessage }}</strong>
                 </alert>
             </div>
             <div>
-                <button ng-click="gologin(loginEmail,loginPassword)">Sign in</button>
+                <button ng-click="main.login(main.email,main.password)">Sign in</button>
             </div>
+-->
         </form>
     </div>
 	
@@ -44,10 +48,12 @@
         <script src="./bower_components/angular-sanitize/angular-sanitize.min.js" type="text/javascript"></script>
         <script src="./bower_components/angular-resource/angular-resource.min.js" type="text/javascript"></script>
         <script src="./bower_components/angular-cookies/angular-cookies.min.js" type="text/javascript"></script>
+        <script src="./bower_components/angular-base64/angular-base64.min.js" type="text/javascript"></script>
 
 
         <script src="./src/jwt/jwt.js" type="text/javascript"></script>
-<!--        <script src="./src/jwt/jwtComponent.js" type="text/javascript"></script>-->
+        <script src="./src/jwt/jwtComponent.js" type="text/javascript"></script>
+        <script src="./src/jwt/jwtModel.js" type="text/javascript"></script>
         <script src="./src/jwt/jwtService.js" type="text/javascript"></script>
 
 

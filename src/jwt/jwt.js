@@ -8,7 +8,8 @@
     'ngRoute',
     'ngResource',
     'ngSanitize',
-    'ngCookies'
+    'ngCookies',
+    'ngBase64'
     ]);
 
 
