@@ -1,15 +1,14 @@
 (function(){
   'use strict';
 
-  angular.module('ngJwt')
-         .service('JwtService', ['$q', JwtService]);
+  angular.module('authJwt')
+         .service('JwtService', ['$http', '$cookies', '$q', '$log', JwtService]);
 
   /**
    * JWT Request Service
-   * Uses embedded, hard-coded data model; acts asynchronously to simulate
-   * remote data service call(s).
+   * 
    *
-   * @returns {{loadContent: Function}}
+   * @returns {{jwtAuthService: object}
    * @constructor
    */
   function JwtService($http, $cookies, $q, $log){

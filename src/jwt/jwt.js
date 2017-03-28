@@ -3,7 +3,13 @@
   'use strict';
 
   // Prepare the 'ngJwt' module for subsequent registration of controllers and delegates
-  angular.module('ngJwt', [ 'ngRoute' ]);
+  angular.module('authJwt', 
+    [
+    'ngRoute',
+    'ngResource',
+    'ngSanitize',
+    'ngCookies'
+    ]);
 
 
 })();

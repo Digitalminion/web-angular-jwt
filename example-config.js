@@ -2,10 +2,6 @@
 'use strict';
 var testApp = angular.module('testApp',
 [
-    'ngRoute',
-    'ngResource',
-    'ngSanitize',
-    'ngCookies',
     'ngJwt'
 ]);
 var apiDomain = "<fully qualified domain and route to your API>"
