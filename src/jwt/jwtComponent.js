@@ -29,10 +29,11 @@
             .then(
                     function(d) {self.jwtmodel.hash = d.token;},
                     function(d) {self.ErrorMessage = "Sorry, we didn't recognize the email or password you entered. Please try again."}
-            ).then(function(d) {$log.log(self.jwtmodel.body);})
+            )
+            .then(
+                    function(d) {$log.log(self.jwtmodel.body);}
+            )
             .finally(function (df) {$log.log('end of promise');});;  
-            
-
         }
     }
 })();

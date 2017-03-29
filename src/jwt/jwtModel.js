@@ -12,22 +12,6 @@
    */
 
     function JwtModel($log, base64){
-
-//            self.header = {
-//                get : function(){
-//                   return self._token.split('.', 1);}
-//            };
-//            self.body = {
-//                get : function(){
-//                    return base64.decode(self._array[1]);}
-//            };
-//            self.token = {
-//                get : function(){return self._token},
-//                set : function(value){
-//                    self._token = value;
-//                    self._array = value.split('.', 2);
-//                }
-//            };
             var JwtModel = {
                 _token : '',
                 _array : '',
