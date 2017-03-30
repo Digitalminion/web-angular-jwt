@@ -10,7 +10,6 @@
    * @returns {{jwtModel: object}
    * @constructor
    */
-
     function JwtModel($log, base64){
             var JwtModel = {
                 _token : '',
