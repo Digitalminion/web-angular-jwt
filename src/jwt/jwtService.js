@@ -1,8 +1,7 @@
 (function(){
   'use strict';
-
   angular.module('authJwt')
-         .service('JwtService', ['$http', '$q', '$log', JwtService]);
+         .service('JwtService', ['apiDomain','apiAuthTokenUrl','apiAuthTokenRefreshUrl','$http', '$q', '$log', JwtService]);
 
   /**
    * JWT Request Service
@@ -11,12 +10,9 @@
    * @returns {{jwtAuthService: object}
    * @constructor
    */
-  function JwtService($http, $q, $log){
       var JwtService = function(){
-          var self = this;
         self.token = function(email, pass) {
             var promise = $http.post(apiDomain + apiAuthTokenUrl, {email: email, password: pass}).then(function (response) {
-                return response.data;
             });
             return promise;
         };
@@ -32,4 +28,3 @@
       return JwtService;
   }
 
-})();
