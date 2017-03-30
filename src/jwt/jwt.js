@@ -8,8 +8,11 @@
     'ngRoute',
     'ngResource',
     'ngSanitize',
-    'ngCookies'
-    ]);
+    'ngBase64'
+    ])
+    .value('apiDomain', '')
+    .value('apiAuthTokenUrl', '')
+    .value('apiAuthTokenRefreshUrl', '');
 
 
 })();

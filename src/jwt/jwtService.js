@@ -1,8 +1,7 @@
 (function(){
   'use strict';
-
   angular.module('authJwt')
-         .service('JwtService', ['$http', '$cookies', '$q', '$log', JwtService]);
+         .service('JwtService', ['apiDomain','apiAuthTokenUrl','apiAuthTokenRefreshUrl','$http', '$q', '$log', JwtService]);
 
   /**
    * JWT Request Service
@@ -11,28 +10,23 @@
    * @returns {{jwtAuthService: object}
    * @constructor
    */
-  function JwtService($http, $cookies, $q, $log){
-    var jwtAuthService = {
-	get_auth_token: function(email, pass) {
-      var promise = $http.post(apiDomain + apiAuthTokenUrl, {email: email, password: pass}).then(function (response) {
-        delete $http.defaults.headers.common.Authorization;
-        $cookies.put('token', response.data["token"]);
-        $http.defaults.headers.common.Authorization = 'JWT ' + response.data["token"];
-        return response.data;
-      });
-      return promise;
-    },
-	get_auth_token_refresh: function(token) {
-      var promise = $http.post(apiDomain + apiAuthTokenRefreshUrl, {token: token}).then(function (response) {
-        delete $http.defaults.headers.common.Authorization;
-        $cookies.put('token', response.data["token"]);
-        $http.defaults.headers.common.Authorization = 'JWT ' + response.data["token"];
-        return response.data;
-      });
-      return promise;
-    },
-  };
-  return jwtAuthService;
+  function JwtService(apiDomain,apiAuthTokenUrl,apiAuthTokenRefreshUrl,$http, $q, $log){
+      var JwtService = function(){
+        var self = this;
+        self.token = function(email, pass) {
+            var promise = $http.post(apiDomain + apiAuthTokenUrl, {email: email, password: pass}).then(function (response) {
+                return response.data;  
+            });
+            return promise;
+        };
+        self.token_refresh = function(token) {
+            var promise = $http.post(apiDomain + apiAuthTokenRefreshUrl, {token: token}).then(function (response) {
+                return response.data;
+            });
+            return promise;
+        };
+        self.init = function(){};
+    	return self.init();
+      }
+      return JwtService;
   }
-
-})();
