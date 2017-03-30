@@ -1,7 +1,7 @@
 (function(){
   'use strict';
   angular.module('authJwt')
-         .service('JwtService', ['apiDomain','apiAuthTokenUrl','apiAuthTokenRefreshUrl','$http', '$q', '$log','base64', JwtService]);
+         .service('JwtAuthService', ['api','$http', '$q', '$log','base64', JwtAuthService]);
 
   /**
    * JWT Request Service
@@ -9,31 +9,9 @@
    *
    * @returns {{jwtAuthService: object}
    * @constructor
-   */
-//  function JwtService(apiDomain,apiAuthTokenUrl,apiAuthTokenRefreshUrl,$http, $q, $log){
-//      var JwtService = function(){
-//        var self = this;
-//        self.token = function(email, pass) {
-//            var promise = $http.post(apiDomain + apiAuthTokenUrl, {email: email, password: pass}).then(function (response) {
-//                return response.data;  
-//            });
-//            return promise;
-//        };
-//        self.token_refresh = function(token) {
-//            var promise = $http.post(apiDomain + apiAuthTokenRefreshUrl, {token: token}).then(function (response) {
-//                return response.data;
-//            });
-//            return promise;
-//        };
-//        self.init = function(){};
-//    	return self.init();
-//      }
-//      return JwtService;
-//  }
-    
-      
-    function JwtService(apiDomain,apiAuthTokenUrl,apiAuthTokenRefreshUrl,$http, $q, $log, base64){
-      var JwtService = class{
+   */      
+    function JwtAuthService(api,$http, $q, $log, base64){
+      var JwtAuthService = class{
             constructor(){
                 this._token = null;
                 this._array = [];
@@ -41,11 +19,11 @@
                 this.body = {};
             }
 
-            login(login){
+            generate(data){
                 //    Create a deferred operation.
                var deferred = $q.defer();
                     //    Get the token from the server.
-                    $http.post(apiDomain + apiAuthTokenUrl, {email: login.email, password: login.pass})
+                    $http.post(api.domain + api.authToken, {email: data.email, password: data.pass})
                     .then(function(response) {
                         deferred.resolve(response.data.token);
                     }, function(response) {
@@ -66,7 +44,7 @@
                     }
                     else if (this.ttl == 'renew'){
                         //    Get the name from the server.
-                        $http.post(apiDomain + apiAuthTokenRefreshUrl, {token: _token})
+                        $http.post(api.domain + api.refreshToken, {token: _token})
                         .then(function(response) {
                             deferred.resolve(response.data.token);
                         }, function(response) {
@@ -81,6 +59,8 @@
                 //    Now return the promise.
                 return deferred.promise;
             }
+          
+
 
             get ttl(){
                 var current = ((new Date).getTime())/1000; 
@@ -93,14 +73,18 @@
                     return 'valid'
                 }else{return 'expired'}
             }
-            set values(token){
+          
+            set persist(token){
                 this._token = token;
                 this._array = token.split('.');
                 this.header = JSON.parse(base64.decode(this._array[0]));
                 this.body = JSON.parse(base64.decode(this._array[1]).replace(/[\u0000]/g, ''));  
             }
+
       }
-      return JwtService;
+      return JwtAuthService;
   }
 
 })();
+
+

@@ -10,9 +10,11 @@
     'ngSanitize',
     'ngBase64'
     ])
-    .value('apiDomain', '')
-    .value('apiAuthTokenUrl', '')
-    .value('apiAuthTokenRefreshUrl', '');
+    .value('api', {
+      'domain':'',
+      'authToken':'',
+      'refreshToken': ''
+  });
 
 
 })();
