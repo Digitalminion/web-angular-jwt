@@ -9,14 +9,12 @@ testApp.controller('AppCtrl', ['$log', AppController])
     function JwtController($log, JwtAccessService, JwtAuthService){
         var self = this;
         self.jwtservice = new JwtAuthService();
-        self.trialsApi = new JwtAccessService();  
-        self.contentApi = new JwtAccessService();  
-        self.trialsApi.modelUrl = '/forum/auth/topics/'
+        self.forumsApi = new JwtAccessService();   
+        self.forumsApi.modelUrl = '/forum/auth/topics/'
         self.login = function(email, password){ 
             self.jwtservice.generate({email: email, pass: password})
                 .then(
                         function(token) {
-                                    self.jwtservice.persist = token;
                                     self.Message = "You have saved a token!"
                                     return token;},
                         function(token) {self.Message = "Sorry, we didn't recognize the email or password you entered. Please try again."}
@@ -27,7 +25,6 @@ testApp.controller('AppCtrl', ['$log', AppController])
         self.check = function(){ 
             self.jwtservice.token.then(
                     function(token) {
-                                self.jwtservice.persist = token;
                                 self.Message = "Your token still works"
                                 return token;},
                     function(token) {self.Message = "Sorry, the session has expired"}
@@ -36,14 +33,11 @@ testApp.controller('AppCtrl', ['$log', AppController])
         self.trials = function(){ 
             self.jwtservice.token.then(
                 function(token) {
-                    self.jwtservice.persist = token;
-                    self.trialsApi.auth = token;
-                    return self.trialsApi.token}
+                    self.forumsApi.auth = token;
+                    return self.forumsApi.token}
             ).then(
                 function(token) {
-                            self.trialsApi.persist = token;
                             self.Message = "You have saved a trial token!"
-                            $log.log(self.trialsApi.body.trial);
                             return token;},
                 function(token) {self.Message = "Couldn't pull a trial"}
             ).then(function (token) {$log.log('end of promise');})

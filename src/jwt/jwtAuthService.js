@@ -1,7 +1,7 @@
 (function(){
   'use strict';
   angular.module('authJwt')
-         .service('JwtAuthService', ['api','$http', '$q', '$log','base64', JwtAuthService]);
+         .service('JwtAuthService', ['api','$http', '$q', 'base64', JwtAuthService]);
 
   /**
    * JWT Request Service
@@ -10,7 +10,7 @@
    * @returns {{jwtAuthService: object}
    * @constructor
    */      
-    function JwtAuthService(api,$http, $q, $log, base64){
+    function JwtAuthService(api,$http, $q, base64){
       var JwtAuthService = class{
             constructor(){
                 this._token = null;
@@ -19,12 +19,13 @@
                 this.body = {};
             }
 
-            generate(data){
+            generate(data, self = this){
                 //    Create a deferred operation.
                var deferred = $q.defer();
                     //    Get the token from the server.
                     $http.post(api.domain + api.authToken, {email: data.email, password: data.pass})
                     .then(function(response) {
+                        self.persist(response.data.token);
                         deferred.resolve(response.data.token);
                     }, function(response) {
                         deferred.reject(response);
@@ -38,7 +39,6 @@
                var deferred = $q.defer();
                 //    Make sure we already have the token, if it has time left we can resolve the promise.
                 if(this._token !== null) {
-                    $log.log(this.ttl)
                     if(this.ttl == 'valid') {
                         deferred.resolve(this._token);
                     }
@@ -74,11 +74,11 @@
                 }else{return 'expired'}
             }
           
-            set persist(token){
-                this._token = token;
-                this._array = token.split('.');
-                this.header = JSON.parse(base64.decode(this._array[0]));
-                this.body = JSON.parse(base64.decode(this._array[1]).replace(/[\u0000]/g, ''));  
+            persist(token, self = this){
+                self._token = token;
+                self._array = token.split('.');
+                self.header = JSON.parse(base64.decode(self._array[0]));
+                self.body = JSON.parse(base64.decode(self._array[1]).replace(/[\u0000]/g, ''));  
             }
 
       }

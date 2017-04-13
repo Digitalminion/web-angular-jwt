@@ -23,25 +23,25 @@
             }
           
             get token(){
-                //    Create a deferred operation.
                var deferred = $q.defer();
                 if(this.auth !== null) {
-                //    Make sure we already have the token, if it has time left we can resolve the promise.
+                    //  See if we already have the token.
                     if(this._token !== null) {
+                        // See if token has time left we can resolve the promise.
                         if(this.ttl == 'valid') {
                             deferred.resolve(this._token);
                             return deferred.promise;
                         }
-                    }
-                    var req = {
+                    }   
+                    $http({
                         method: 'PUT',
                         url: api.domain + this.modelUrl,
                         headers: {
                             'Authorization': 'JWT '+ this.auth
                         }
-                    }    
-                    $http(req).then(
+                    }).then(
                         function (response) {
+                            this.persist = response.data.token
                             deferred.resolve(response.data.token);}, 
                         function(response) {
                             deferred.reject(response);
