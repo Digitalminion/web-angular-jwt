@@ -4,8 +4,7 @@ testApp.controller('AppCtrl', ['$log', AppController])
                 controller: JwtController,
                 controllerAs: 'auth',
                 template:'<div> <alert> <strong>{{ auth.Message }}</strong></alert></div><div><button ng-click="auth.login(auth.email,auth.password)">Sign in</button></div><div><button ng-click="auth.check()">Check Session</button></div><div><button ng-click="auth.trials()">Check Trials</button></div>'
-                });
-
+                })  
     function JwtController($log, JwtAccessService, JwtAuthService){
         var self = this;
         self.jwtservice = new JwtAuthService();
@@ -23,7 +22,7 @@ testApp.controller('AppCtrl', ['$log', AppController])
         }
         
         self.check = function(){ 
-            self.jwtservice.token.then(
+            self.jwtservice.token().then(
                     function(token) {
                                 self.Message = "Your token still works"
                                 return token;},
@@ -31,10 +30,10 @@ testApp.controller('AppCtrl', ['$log', AppController])
             );  
         }
         self.trials = function(){ 
-            self.jwtservice.token.then(
+            self.jwtservice.token().then(
                 function(token) {
                     self.forumsApi.auth = token;
-                    return self.forumsApi.token}
+                    return self.forumsApi.token()}
             ).then(
                 function(token) {
                             self.Message = "You have saved a trial token!"
@@ -45,7 +44,8 @@ testApp.controller('AppCtrl', ['$log', AppController])
         }
     };
 
-    function  AppController($log){
+    function  AppController($scope, $log){
         $log.log('controller running')
+        $scope.$log = $log
     };
 

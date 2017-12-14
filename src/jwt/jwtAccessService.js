@@ -22,26 +22,27 @@
                 
             }
           
-            get token(){
+            token(self = this){
                var deferred = $q.defer();
-                if(this.auth !== null) {
+                if(self.auth !== null) {
                     //  See if we already have the token.
-                    if(this._token !== null) {
+                    if(self._token !== null) {
                         // See if token has time left we can resolve the promise.
-                        if(this.ttl == 'valid') {
-                            deferred.resolve(this._token);
+                        if(self.ttl == 'valid') {
+                            deferred.resolve(self._token);
                             return deferred.promise;
                         }
                     }   
                     $http({
                         method: 'PUT',
-                        url: api.domain + this.modelUrl,
+                        url: api.domain + self.modelUrl,
                         headers: {
-                            'Authorization': 'JWT '+ this.auth
+                            'Authorization': 'JWT '+ self.auth
                         }
                     }).then(
                         function (response) {
-                            this.persist = response.data.token
+                            $log.log(response)
+                            self.persist(response.data.token);
                             deferred.resolve(response.data.token);}, 
                         function(response) {
                             deferred.reject(response);
@@ -53,23 +54,23 @@
                 return deferred.promise;
             }
 
-            get ttl(){
+            ttl(self = this){
                 var current = ((new Date).getTime())/1000; 
-                if ((current-this.body.exp) > 600){
+                if ((current-self.body.exp) > 600){
                     return 'expired'
-                }else if((current-this.body.exp) > 450){
+                }else if((current-self.body.exp) > 450){
                     return 'renew'    
                 }
-                else if((current-this.body.exp) < 450){
+                else if((current-self.body.exp) < 450){
                     return 'valid'
                 }else{return 'expired'}
             }
           
-            set persist(token){
-                this._token = token;
-                this._array = token.split('.');
-                this.header = JSON.parse(base64.decode(this._array[0]));
-                this.body = JSON.parse(base64.decode(this._array[1]).replace(/[\u0000]/g, ''));  
+            persist(token, self = this){
+                self._token = token;
+                self._array = token.split('.');
+                self.header = JSON.parse(base64.decode(self._array[0]));
+                self.body = JSON.parse(base64.decode(self._array[1]).replace(/[\u0000]/g, ''));  
             }
         
       }

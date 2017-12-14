@@ -1,0 +1,27 @@
+	<div id="title">
+        <h1>This is a test page to validate JWT is working</h1>
+    </div>
+	
+    <hr />
+    
+	<div id="login">
+        <h1>[login form here]</h1>
+        <form>
+            <div>
+                <label for="inputEmail">Email</label>
+                <input type="username" id="inputEmail" ng-model="auth.email" placeholder="Email" />
+            </div>
+            <div>
+                <label for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" ng-model="auth.password" placeholder="Password" />
+            </div>
+            
+            <div> <alert> <strong>{{ auth.Message }}</strong></alert></div><div><button ng-click="auth.login(auth.email,auth.password)">Sign in</button></div><div><button ng-click="auth.check()">Check Session</button></div><div><button ng-click="#">Check Trials</button></div>
+        </form>
+    </div>
+	
+    <div id="Request">
+    
+        <h1>[Button to trigger requests to data model here]</h1>
+        
+    </div>

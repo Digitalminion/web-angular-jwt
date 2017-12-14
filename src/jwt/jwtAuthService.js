@@ -34,18 +34,19 @@
                 return deferred.promise;
             }
 
-            get token(){
+            token(self = this){
                 //    Create a deferred operation.
                var deferred = $q.defer();
                 //    Make sure we already have the token, if it has time left we can resolve the promise.
-                if(this._token !== null) {
-                    if(this.ttl == 'valid') {
-                        deferred.resolve(this._token);
+                if(self._token !== null) {
+                    if(self.ttl == 'valid') {
+                        deferred.resolve(self._token);
                     }
                     else if (this.ttl == 'renew'){
                         //    Get the name from the server.
                         $http.post(api.domain + api.refreshToken, {token: _token})
                         .then(function(response) {
+                            self.persist(response.data.token);
                             deferred.resolve(response.data.token);
                         }, function(response) {
                             deferred.reject(response);
